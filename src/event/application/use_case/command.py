@@ -1,5 +1,6 @@
 from uuid import uuid4
 from pydantic import BaseModel
+from src.event.application.unit_of_work import EventUnitOfWork
 from src.event.infra.repository.dto import EventDTO
 from src.event.infra.repository.protocol import EventRepository
 
@@ -13,12 +14,13 @@ class NewEventCommand(BaseModel):
 
 
 class EventCommandUseCase:
-    def __init__(self, event_repository: EventRepository):
-        self.event_repository = event_repository
+    def __init__(self, uow: EventUnitOfWork):
+        self.uow = uow
 
     async def create_event(self, command: NewEventCommand) -> Event:
-        dto = await self.event_repository.insert_event(
-            EventDTO(id=uuid4(), key=command.key, value=command.value)
-        )
-        event = dto_to_aggregate(dto)
-        return event
+        with self.uow as uow:
+            dto = await uow.events.insert_event(
+                EventDTO(id=uuid4(), key=command.key, value=command.value)
+            )
+            event = dto_to_aggregate(dto)
+            return event
