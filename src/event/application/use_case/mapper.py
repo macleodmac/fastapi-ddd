@@ -1,5 +1,5 @@
-from subdomain.event.infrastructure.dto import EventDTO
-from subdomain.event.model import Event
+from src.event.infra.repository.dto import EventDTO
+from src.event.domain.entity import Event
 
 
 def dto_to_aggregate(dto: EventDTO) -> Event:

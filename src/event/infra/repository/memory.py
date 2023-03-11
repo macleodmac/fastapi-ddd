@@ -1,7 +1,7 @@
 from typing import Protocol
 from uuid import UUID
 
-from subdomain.event.infrastructure.dto import EventDTO
+from src.event.infra.repository.dto import EventDTO
 
 
 class MemoryEventRepository:

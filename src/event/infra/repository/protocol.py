@@ -1,6 +1,6 @@
 from typing import Protocol
 
-from subdomain.event.infrastructure.dto import EventDTO
+from src.event.infra.repository.dto import EventDTO
 
 
 class EventRepository(Protocol):

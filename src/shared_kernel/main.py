@@ -1,4 +1,4 @@
-from api.routers.event import router
+from src.event.presentation.router import router
 from fastapi import FastAPI
 import uvicorn
 
